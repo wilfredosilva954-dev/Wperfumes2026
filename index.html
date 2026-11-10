@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W Perfume | Atelier & Boutique de Fragancias</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#f6d365',
+                            500: '#d4af37',
+                            600: '#aa7c11',
+                            700: '#855e0c',
+                        },
+                        dark: {
+                            900: '#0d0d0f',
+                            800: '#141418',
+                            700: '#1e1e24',
+                            600: '#2a2a34',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0d0d0f;
+            color: #e4e4e7;
+        }
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141418;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a34;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fff2c5 0%, #d4af37 50%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-black">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-dark-900/90 backdrop-blur-md border-b border-gold-500/20 px-4 lg:px-8 py-3.5 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('catalog')">
+                <div class="w-10 h-10 rounded-full border border-gold-500/50 bg-gradient-to-br from-gold-500/20 to-transparent flex items-center justify-center shadow-lg">
+                    <span class="font-serif-title font-bold text-xl text-gold-400">W</span>
+                </div>
+                <div>
+                    <h1 class="font-serif-title text-lg md:text-xl font-bold tracking-wide gold-gradient-text">W PERFUME</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-zinc-400 font-medium">Atelier de Fragancias</p>
+                </div>
+            </div>
+
+            <!-- Global Search & Actions -->
+            <div class="flex items-center gap-2 md:gap-4">
+                <!-- Mode Switcher -->
+                <button id="toggleModeBtn" onclick="toggleAdminMode()" class="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-semibold transition border border-gold-500/30 bg-dark-800 hover:bg-gold-500/10 text-gold-400">
+                    <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+                    <span id="modeBtnText" class="hidden sm:inline">Modo Inventario (Admin)</span>
+                </button>
+
+                <!-- Cart Button (Catalog Mode) -->
+                <button id="cartBtn" onclick="openCartModal()" class="relative flex items-center gap-2 px-3.5 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-bold bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-black shadow-lg shadow-gold-500/10 transition transform active:scale-95">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Carrito</span>
+                    <span id="cartBadgeCount" class="bg-black text-gold-400 text-xs px-2 py-0.5 rounded-full font-extrabold ml-1">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- BANNER PROMO / HERO -->
+        <div id="heroSection" class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-dark-800 via-dark-700 to-dark-800 border border-gold-500/20 p-6 md:p-8 mb-8 shadow-2xl">
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-gold-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-gold-500/10 text-gold-400 border border-gold-500/20 mb-3">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Colecciones Exclusivas & Perfumería Niche
+                    </span>
+                    <h2 class="font-serif-title text-2xl md:text-4xl font-bold text-white mb-2">Encuentra tu Esencia Firmada</h2>
+                    <p class="text-zinc-400 text-xs md:text-sm max-w-xl">Explora nuestro catálogo en tiempo real con stock actualizado. Añade las esencias que desees y genera tu pedido directo por WhatsApp.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="filterCategory('Ofertas')" class="px-4 py-2 rounded-xl bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 text-gold-400 text-xs font-semibold flex items-center gap-2 transition">
+                        <i data-lucide="tag" class="w-4 h-4"></i> Ver Ofertas Especiales
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIES FILTER BAR -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xs uppercase tracking-wider text-zinc-400 font-bold flex items-center gap-2">
+                    <i data-lucide="filter" class="w-4 h-4 text-gold-500"></i> Filtrar por Categoría
+                </h3>
+                <span id="productCountLabel" class="text-xs text-zinc-500 font-medium">Cargando productos...</span>
+            </div>
+            
+            <!-- Category Pills Scrollable -->
+            <div id="categoryContainer" class="flex gap-2 overflow-x-auto pb-2 scrollbar-none text-xs md:text-sm">
+                <!-- Categories populated by JS -->
+            </div>
+        </div>
+
+        <!-- SEARCH BAR & SORTING -->
+        <div class="flex flex-col sm:flex-row gap-3 mb-6 items-center justify-between">
+            <div class="relative w-full sm:w-80">
+                <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500"></i>
+                <input type="text" id="searchInput" oninput="renderApp()" placeholder="Buscar esencia, marca o notas..." class="w-full bg-dark-800 border border-dark-600 focus:border-gold-500/60 rounded-xl pl-10 pr-4 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none transition">
+            </div>
+
+            <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                <select id="sortSelect" onchange="renderApp()" class="bg-dark-800 border border-dark-600 text-zinc-300 text-xs md:text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-gold-500/60">
+                    <option value="default">Ordenar: Por Defecto</option>
+                    <option value="price-low">Precio: Menor a Mayor</option>
+                    <option value="price-high">Precio: Mayor a Menor</option>
+                    <option value="stock-high">Mayor Disponibilidad</option>
+                    <option value="name">Nombre (A-Z)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- CATALOG VIEW -->
+        <div id="catalogViewSection">
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                <!-- Product cards injected by JS -->
+            </div>
+        </div>
+
+        <!-- ADMIN INVENTORY VIEW (HIDDEN BY DEFAULT) -->
+        <div id="adminViewSection" class="hidden space-y-8">
+            
+            <!-- Admin Top Controls & Add Form Trigger -->
+            <div class="bg-dark-800 border border-gold-500/30 rounded-2xl p-6 shadow-xl">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 pb-4 border-b border-dark-700">
+                    <div>
+                        <h2 class="font-serif-title text-xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="boxes" class="w-5 h-5 text-gold-400"></i> Gestor de Inventario & Precios
+                        </h2>
+                        <p class="text-xs text-zinc-400">Agrega nuevos productos, modifica existencias en tiempo real y gestiona ofertas.</p>
+                    </div>
+                    <button onclick="openProductModal()" class="w-full md:w-auto px-4 py-2.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-black font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg transition">
+                        <i data-lucide="plus-circle" class="w-4 h-4"></i> Añadir Nuevo Producto
+                    </button>
+                </div>
+
+                <!-- Fast Stock Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs md:text-sm text-zinc-300">
+                        <thead class="bg-dark-900/80 text-zinc-400 uppercase tracking-wider text-[11px] font-semibold border-b border-dark-700">
+                            <tr>
+                                <th class="py-3 px-4">Producto</th>
+                                <th class="py-3 px-4">Categoría</th>
+                                <th class="py-3 px-4">Precio / Oferta</th>
+                                <th class="py-3 px-4 text-center">Stock Actual</th>
+                                <th class="py-3 px-4 text-center">Ajuste Rápido (+/-)</th>
+                                <th class="py-3 px-4 text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminInventoryTable" class="divide-y divide-dark-700/60">
+                            <!-- Rows populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-dark-700 bg-dark-900 py-8 px-4 mt-12 text-center text-xs text-zinc-500">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-serif-title font-bold text-gold-400 text-base">W PERFUME</span>
+                <span>• Boutique & Atelier de Fragancias</span>
+            </div>
+            <p>© <span id="yearSpan"></span> W Perfume. Catálogo e Inventario Automatizado.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL: ADD / EDIT PRODUCT (ADMIN) -->
+    <div id="productModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-dark-800 border border-gold-500/30 rounded-2xl max-w-xl w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <h3 id="modalTitle" class="font-serif-title text-xl font-bold text-gold-400 mb-4">Añadir Nuevo Producto</h3>
+
+            <form id="productForm" onsubmit="saveProduct(event)" class="space-y-4">
+                <input type="hidden" id="editProductId">
+
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-300 mb-1">Nombre del Producto / Perfume *</label>
+                    <input type="text" id="prodName" required placeholder="Ej: Valentino Uomo Noir Absolu" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-500">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-300 mb-1">Categoría *</label>
+                        <select id="prodCategory" required class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-500">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-300 mb-1">Cantidad / Stock Inicial *</label>
+                        <input type="number" id="prodStock" min="0" required placeholder="Ej: 15" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-300 mb-1">Precio Regular ($) *</label>
+                        <input type="number" step="0.01" id="prodPrice" required placeholder="35.00" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-300 mb-1">Precio de Oferta ($) (Opcional)</label>
+                        <input type="number" step="0.01" id="prodOfferPrice" placeholder="29.99" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-300 mb-1">Notas Olfativas / Descripción Corta</label>
+                    <textarea id="prodDescription" rows="2" placeholder="Ej: Notas de Canela, Incienso, Madera de Cedro y Sándalo." class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-500"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-300 mb-1">URL de Imagen (Opcional)</label>
+                    <input type="url" id="prodImage" placeholder="https://images.unsplash.com/..." class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3.5 py-2 text-sm text-white focus:outline-none focus:border-gold-500">
+                    <span class="text-[10px] text-zinc-500">Si se deja vacío, se asignará una imagen ilustrativa de alta calidad según la categoría.</span>
+                </div>
+
+                <div class="flex items-center gap-3 pt-2">
+                    <input type="checkbox" id="prodIsOffer" class="w-4 h-4 accent-gold-500 rounded cursor-pointer">
+                    <label for="prodIsOffer" class="text-xs text-zinc-300 font-medium cursor-pointer">Marcar como Producto en Oferta Especial</label>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-dark-700">
+                    <button type="button" onclick="closeProductModal()" class="px-4 py-2 rounded-xl border border-dark-600 text-zinc-400 text-xs font-bold hover:bg-dark-700">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-black text-xs font-bold shadow-lg">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CART & WHATSAPP CHECKOUT -->
+    <div id="cartModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-dark-800 border border-gold-500/30 rounded-2xl max-w-lg w-full p-6 relative max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col">
+            <button onclick="closeCartModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <h3 class="font-serif-title text-xl font-bold text-gold-400 mb-1 flex items-center gap-2">
+                <i data-lucide="shopping-bag" class="w-5 h-5"></i> Tu Pedido (W Perfume)
+            </h3>
+            <p class="text-xs text-zinc-400 mb-4">Revisa las esencias seleccionadas antes de enviar por WhatsApp.</p>
+
+            <!-- Cart Items List -->
+            <div id="cartItemsContainer" class="divide-y divide-dark-700 my-2 max-h-60 overflow-y-auto pr-1">
+                <!-- Items populated by JS -->
+            </div>
+
+            <!-- Total Summary -->
+            <div class="pt-4 border-t border-dark-700 space-y-2">
+                <div class="flex justify-between text-xs text-zinc-400">
+                    <span>Subtotal Cantidad Items:</span>
+                    <span id="cartTotalItemsCount" class="font-semibold text-zinc-200">0</span>
+                </div>
+                <div class="flex justify-between text-base font-bold text-white pt-1">
+                    <span>Total Estimado:</span>
+                    <span id="cartTotalPrice" class="text-gold-400 font-serif-title text-lg">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Phone Number & Checkout -->
+            <div class="mt-6 space-y-3">
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mb-1">Tu Nombre Completo (Opcional)</label>
+                    <input type="text" id="customerName" placeholder="Ej: María González" class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-gold-500">
+                </div>
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mb-1">Notas Especiales o Dirección de Entrega</label>
+                    <input type="text" id="customerNotes" placeholder="Ej: Entrega en el Centro, fragancia para regalo..." class="w-full bg-dark-900 border border-dark-600 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-gold-500">
+                </div>
+
+                <button onclick="checkoutWhatsApp()" class="w-full py-3 bg-green-600 hover:bg-green-500 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg transition">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i> Confirmar & Pedir por WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- CONSTANTS & CATEGORIES ---
+     
